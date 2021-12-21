@@ -16,5 +16,10 @@ namespace eTickets.Models
         public string FullName { get; set; }
 
         public string Bio { get; set; }
+
+        // Relationships
+
+        // A producer can produce multiple movies (one-to-many relationship)
+        public List<Movie> Movies { get; set; }
     }
 }

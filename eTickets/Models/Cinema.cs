@@ -16,5 +16,10 @@ namespace eTickets.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        // Relationships
+
+        // A cinema can have multiple movies (one-to-many relationship)
+        public List<Movie> Movies { get; set; }
     }
 }
