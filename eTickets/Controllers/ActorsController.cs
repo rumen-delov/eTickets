@@ -24,7 +24,8 @@ namespace eTickets.Controllers
             // Get the data
             List<Actor> data = _context.Actors.ToList();
 
-            return View();
+            // Pass the data from the db to the view to be displayed (in the View page (index.cshtml) the model should be defined)
+            return View(data);
         }
     }
 }
