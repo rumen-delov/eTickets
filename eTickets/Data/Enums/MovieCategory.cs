@@ -10,6 +10,8 @@ namespace eTickets.Data
         Action = 1, // dafault enumeration start index is 0, here we set the start index to 1
         Comedy,
         Drama,
-        Documentary
+        Documentary,
+        Cartoon,
+        Horror
     }
 }
