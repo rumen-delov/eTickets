@@ -1,16 +1,15 @@
 ﻿@*Define model (the data type youn want to display in this file)*@
-@*Here: List of actors (but should be as IEnumerable (why?)), because this is what we take in the controller as parameter (var data)*@
+@*Here: List of producers (but should be as IEnumerable (why?)), because this is what we take in the controller as parameter (var data)*@
 
-@model IEnumerable<Actor>
-
+@model IEnumerable<Producer>
 
 
 @*Define ViewData
     (the data that you want have in the browser tab, or
     properties tha  you want to use in your view, etc.)*@
 
-@{ 
-    ViewData["Title"] = "list of Actors";
+@{
+    ViewData["Title"] = "list of Producers";
 }
 
 
@@ -21,6 +20,7 @@
 
         <table class="table">
             <thead>
+                @*To center the text in table header insert class with value text-center*@
                 <tr class="text-center">
                     <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
                     <th>@Html.DisplayNameFor(model => model.FullName)</th>
@@ -33,7 +33,7 @@
                 {
                     <tr>
                         <td class="align-middle">
-                            <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FullName" style="max-width: 150px"/>
+                            <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FullName" style="max-width: 150px" />
                         </td>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.FullName)
