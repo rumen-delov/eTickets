@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data;
+using eTickets.Data.Services;
 using eTickets.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,21 +11,16 @@ namespace eTickets.Controllers
 {
     public class ActorsController : Controller
     {
-        // To get or send data to the Db we need a db context
-        private readonly AppDbContext _context;
+        private readonly IActorsService _service;
 
-        // To be able to use the context we need to inject it into the constructor
-        public ActorsController(AppDbContext context)
+        public ActorsController(IActorsService service)
         {
-            _context = context;
+            _service = service;
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            // Get the data
-            List<Actor> data = _context.Actors.ToList();
-
-            // Pass the data from the db to the view to be displayed (in the View page (index.cshtml) the model should be defined)
+            var data =await _service.GetAll();
             return View(data);
         }
     }
