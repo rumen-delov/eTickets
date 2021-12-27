@@ -21,7 +21,7 @@ namespace eTickets.Controllers
         {
             var allCinemas = await _context.Cinemas.ToListAsync();
             
-            return View();
+            return View(allCinemas);
         }
     }
 }
