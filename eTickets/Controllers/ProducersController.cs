@@ -20,8 +20,12 @@ namespace eTickets.Controllers
         public async Task<IActionResult> Index()
         {
             var allProducers = await _context.Producers.ToListAsync();
-            
+            // If you do not define a name, then by default,
+            // the name of the view needs to be the same as the action
             return View(allProducers);
+
+            // Otherwise you can define the name of the view
+            //return View("IndexNew", allProducers);
         }
     }
 }
