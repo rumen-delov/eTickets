@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data;
+using eTickets.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,15 @@ namespace eTickets
             // DbContext configuration
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 
+            // Services configuration
+
+            // .NET dependency injection system has 3 major lifetimes:
+            // Singleton - services created once throughout the application, the singleton objects are the same for every object and every request
+            // Scoped - services created once per request within the scope, the scope objects are the same within a request, but different across different requests 
+            // Transient - services are created each time they are requested, the transient objects are always different and a new instance is provided to every controller and every service
+            services.AddScoped<IActorsService, ActorsService>();
+
+            // Included by the framework 
             services.AddControllersWithViews();
         }
 
