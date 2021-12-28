@@ -59,7 +59,7 @@ namespace eTickets.Controllers
             return View(actorDetails);
         }
 
-        // GET request: Actors/Edit
+        // GET request: Actors/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
             var actorDetails = await _service.GetByIdAsync(id);
@@ -81,6 +81,35 @@ namespace eTickets.Controllers
             }
 
             await _service.UpdateAsync(id, actor);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET request: Actors/Delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var actorDetails = await _service.GetByIdAsync(id);
+
+            if (actorDetails == null)
+            {
+                return View("Not found");
+            }
+
+            return View(actorDetails);
+        }
+
+        [HttpPost] // Because we are sending a POST request from Delete.cshtml
+        [ActionName("Delete")] // ActionName("Delete") allows the method DeleteConfirmed to be called as Delete in a POST request 
+        public async Task<IActionResult> DeleteConfirmed(int id) // We cannot have two methods with the same name and same parameter,
+                                                                 // so we use DeleteConfirmed instead of just Delete 
+        {
+            var actorDetails = await _service.GetByIdAsync(id);
+
+            if (actorDetails == null)
+            {
+                return View("Not found");
+            }
+
+            await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }
