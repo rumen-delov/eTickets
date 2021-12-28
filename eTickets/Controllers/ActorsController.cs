@@ -20,14 +20,14 @@ namespace eTickets.Controllers
         
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Actor> data = await _service.GetAll();
+            IEnumerable<Actor> data = await _service.GetAllAsync();
             return View(data);
         }
 
         // Initially, we want just to return the empty view, and
         // when the user provides some data, we want to send another request
 
-        // GET request
+        // GET request: Actors/Create
         // No need to be async, because there is no data manipulation
         public IActionResult Create()
         {
@@ -42,8 +42,21 @@ namespace eTickets.Controllers
                 return View(actor);
             }
 
-            _service.Add(actor);
+            await _service.AddAsync(actor);
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET request: Actors/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var actorDetails = await _service.GetByIdAsync(id);
+
+            if (actorDetails == null)
+            {
+                return View("Empty");
+            }
+
+            return View(actorDetails);
         }
     }
 }
