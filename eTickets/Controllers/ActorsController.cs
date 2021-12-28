@@ -20,7 +20,7 @@ namespace eTickets.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var data =await _service.GetAll();
+            IEnumerable<Actor> data = await _service.GetAll();
             return View(data);
         }
 
@@ -32,6 +32,18 @@ namespace eTickets.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost] // Because we are sending a POST request from Create.cshtml
+        public async Task<IActionResult> Create([Bind("FullName, ProfilePictureURL, Bio")]Actor actor) // Bind the properties that we are going to send from the Create view
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(actor);
+            }
+
+            _service.Add(actor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
