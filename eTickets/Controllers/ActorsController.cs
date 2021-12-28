@@ -23,5 +23,15 @@ namespace eTickets.Controllers
             var data =await _service.GetAll();
             return View(data);
         }
+
+        // Initially, we want just to return the empty view, and
+        // when the user provides some data, we want to send another request
+
+        // GET request
+        // No need to be async, because there is no data manipulation
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
