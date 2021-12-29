@@ -53,7 +53,7 @@ namespace eTickets.Controllers
 
             if (actorDetails == null)
             {
-                return View("Not found");
+                return View("NotFound");
             }
 
             return View(actorDetails);
@@ -66,7 +66,7 @@ namespace eTickets.Controllers
 
             if (actorDetails == null)
             {
-                return View("Not found");
+                return View("NotFound");
             }
 
             return View(actorDetails);
@@ -91,7 +91,7 @@ namespace eTickets.Controllers
 
             if (actorDetails == null)
             {
-                return View("Not found");
+                return View("NotFound");
             }
 
             return View(actorDetails);
@@ -106,7 +106,7 @@ namespace eTickets.Controllers
 
             if (actorDetails == null)
             {
-                return View("Not found");
+                return View("NotFound");
             }
 
             await _service.DeleteAsync(id);
