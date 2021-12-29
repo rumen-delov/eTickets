@@ -36,6 +36,7 @@ namespace eTickets
             // Scoped - services created once per request within the scope, the scope objects are the same within a request, but different across different requests 
             // Transient - services are created each time they are requested, the transient objects are always different and a new instance is provided to every controller and every service
             services.AddScoped<IActorsService, ActorsService>();
+            services.AddScoped<IProducersService, ProducersService>();
 
             // Included by the framework 
             services.AddControllersWithViews();
