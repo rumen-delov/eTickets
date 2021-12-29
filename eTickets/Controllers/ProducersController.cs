@@ -28,5 +28,18 @@ namespace eTickets.Controllers
             // Otherwise you can define the name of the view
             //return View("IndexNew", allProducers);
         }
+
+        // GET: Producers/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var producerDetails = await _service.GetByIdAsync(id);
+
+            if (producerDetails == null)
+            {
+                return View("NotFound");
+            }
+
+            return View(producerDetails);
+        }
     }
 }
