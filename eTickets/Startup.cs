@@ -37,6 +37,7 @@ namespace eTickets
             // Transient - services are created each time they are requested, the transient objects are always different and a new instance is provided to every controller and every service
             services.AddScoped<IActorsService, ActorsService>();
             services.AddScoped<IProducersService, ProducersService>();
+            services.AddScoped<ICinemasService, CinemasService>();
 
             // Included by the framework 
             services.AddControllersWithViews();
