@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -36,6 +37,18 @@ namespace eTickets.Data.Base
         {
             var result = await _context.Set<T>().ToListAsync(); // Generically set the type with Set<T>()
             return result;           
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            // We want to get all the properties from the includeProperties array so we use the Aggregate function
+            // The first parameter of the Aggregate is going to be the query, and
+            // the second parameter is going to be the function that is going to be used to get all the include properties
+            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
+            return await query.ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(int id)
