@@ -21,7 +21,7 @@ namespace eTickets.Data
             });
 
             // Define the one-to-many relationships in the mapping table 
-            modelBuilder.Entity<ActorMovie>().HasOne(m => m.Movie).WithMany(am => am.ActorsMovies).HasForeignKey(m => m.MovieId);
+            modelBuilder.Entity<ActorMovie>().HasOne(m => m.Movie).WithMany((System.Linq.Expressions.Expression<Func<Movie, IEnumerable<ActorMovie>>>)(am => (IEnumerable<ActorMovie>)am.ActorsMovies)).HasForeignKey(m => m.MovieId);
             modelBuilder.Entity<ActorMovie>().HasOne(m => m.Actor).WithMany(am => am.ActorsMovies).HasForeignKey(m => m.ActorId);
 
             base.OnModelCreating(modelBuilder);

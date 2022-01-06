@@ -1,4 +1,116 @@
-﻿
-@ViewData["Welcome"]
+﻿@*@ViewData["Welcome"]
 <br />
-@ViewBag.Description
+@ViewBag.Description*@
+
+
+@model NewMovieVM
+
+@{
+    ViewData["Title"] = "Create a new movie";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Create a new movie</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+
+                        @*left column*@
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Name" class="contrl-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="StartDate" class="contrl-label"></label>
+                                <input asp-for="StartDate" type="date" class="form-control" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EndDate" class="contrl-label"></label>
+                                <input asp-for="EndDate" type="date" class="form-control" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price" class="contrl-label"></label>
+                                <input asp-for="Price" type="number" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ImageURL" class="contrl-label"></label>
+                                <input asp-for="ImageURL" class="form-control" />
+                                <span asp-validation-for="ImageURL" class="text-danger"></span>
+                            </div>
+                        </div>
+                        @*right column*@
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CinemaId" class="contrl-label"></label>
+                                @*This is a dropdown menu*@
+                                <select asp-for="CinemaId" class="form-control"></select>
+                                <span asp-validation-for="CinemaId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MovieCategory" class="contrl-label"></label>
+                                @*This is a dropdown menu*@
+                                <select asp-for="MovieCategory" class="form-control"></select>
+                                <span asp-validation-for="MovieCategory" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProducerId" class="contrl-label"></label>
+                                @*This is a dropdown menu*@
+                                <select asp-for="ProducerId" class="form-control"></select>
+                                <span asp-validation-for="ProducerId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ActorIds" class="contrl-label"></label>
+                                @*This is a dropdown menu with multiple selection*@
+                                <select asp-for="ActorIds" class="form-control" multiple></select>
+                                <span asp-validation-for="ActorIds" class="text-danger"></span>
+                            </div>
+                        </div>
+                        @*Description section*@
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="contrl-label"></label>
+                                @*This is a dropdown menu*@
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"> </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 offset-4 text-center">
+                        <img width="100%" id="ImageUrlPreview" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="index">Show all</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("ImageURL").on("change", function () {
+            var output = document.getElementById("ImageUrlPreview");
+            output.src = $(this).val();
+        })
+    </script>
+}
