@@ -30,5 +30,15 @@ namespace eTickets.Controllers
             var movieDetails = await _service.GetMovieByIdAsync(id);
             return View(movieDetails);
         }
+
+        // GET: Movies/Create
+        public IActionResult Create()
+        {
+            ViewData["Welcome"] = "Welcome to our store"; // If you want to pass complex data type from controller to a view
+                                                          // using the ViewData, it requires type casting 
+            ViewBag.Description = "This is the store description"; // while ViewBag does not require type casting for complex data types
+
+            return View();
+        }
     }
 }
