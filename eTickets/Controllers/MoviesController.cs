@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eTickets.Data;
 using eTickets.Data.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTickets.Controllers
@@ -32,11 +33,17 @@ namespace eTickets.Controllers
         }
 
         // GET: Movies/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["Welcome"] = "Welcome to our store"; // If you want to pass complex data type from controller to a view
-                                                          // using the ViewData, it requires type casting 
-            ViewBag.Description = "This is the store description"; // while ViewBag does not require type casting for complex data types
+            //ViewData["Welcome"] = "Welcome to our store"; // If you want to pass complex data type from controller to a view
+            //                                              // using the ViewData, it requires type casting 
+            //ViewBag.Description = "This is the store description"; // while ViewBag does not require type casting for complex data types
+
+            var movieDropdownsdata = await _service.GetNewMovieDropdownsValues();
+
+            ViewBag.Cinemas = new SelectList(movieDropdownsdata.Cinemas, "Id", "Name");
+            ViewBag.Producers = new SelectList(movieDropdownsdata.Producers, "Id", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsdata.Actors, "Id", "FullName");
 
             return View();
         }
