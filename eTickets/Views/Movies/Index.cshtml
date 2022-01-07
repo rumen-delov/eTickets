@@ -2,7 +2,6 @@
 @*Here: List of movies (but should be as IEnumerable (why?)), because this is what we take in the controller as parameter (var data)*@
 
 @model IEnumerable<Movie>
-
 @*Define ViewData
     (the data that you want have in the browser tab, or
     properties tha  you want to use in your view, etc.)*@
@@ -83,4 +82,6 @@
         </div>
     }
 </div>
+
+@await Html.PartialAsync("_CreateItem", "Movies")
 

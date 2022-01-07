@@ -3,7 +3,6 @@
 
 @model IEnumerable<Producer>
 
-
 @*Define ViewData
     (the data that you want have in the browser tab, or
     properties tha  you want to use in your view, etc.)*@
@@ -54,6 +53,4 @@
     </div>
 </div>
 
-<div style="position: fixed; right: 50px; bottom: 75px;" class="text-white">
-    <a asp-controller="Producers" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add New </a>
-</div>
+@await Html.PartialAsync("_CreateItem", "Producers") 
