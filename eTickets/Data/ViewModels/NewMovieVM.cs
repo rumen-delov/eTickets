@@ -11,7 +11,9 @@ namespace eTickets.Data.ViewModels
 {
     public class NewMovieVM
     {
-        // We do not use this model to store data to the data base, so we do not need Id
+        // We do not use this model to store data to the database, so we do not need Id
+        // But now we obviously need an Id to edit the data in the database
+        public int Id { get; set; }
 
         [Display(Name = "Movie name")]
         [Required(ErrorMessage = "Name is required")]
