@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data;
 using eTickets.Data.Services;
+using eTickets.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,10 +19,10 @@ namespace eTickets.Controllers
         {
             _service = service;
         }
-        
+
         public async Task<IActionResult> Index()
         {
-            var allMovies = await _service.GetAllAsync(n => n.Cinema);           
+            var allMovies = await _service.GetAllAsync(n => n.Cinema);
             return View(allMovies);
         }
 
@@ -46,6 +47,25 @@ namespace eTickets.Controllers
             ViewBag.Actors = new SelectList(movieDropdownsdata.Actors, "Id", "FullName");
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewMovieVM movie)
+        {
+            // Validate the model state
+            if (!ModelState.IsValid)
+            {
+                var movieDropdownsdata = await _service.GetNewMovieDropdownsValues();
+
+                ViewBag.Cinemas = new SelectList(movieDropdownsdata.Cinemas, "Id", "Name");
+                ViewBag.Producers = new SelectList(movieDropdownsdata.Producers, "Id", "FullName");
+                ViewBag.Actors = new SelectList(movieDropdownsdata.Actors, "Id", "FullName");
+
+                return View(movie); // return the same view, but now it will contains the validation errors 
+            }
+
+            await _service.AddNewMovieAsync(movie);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
