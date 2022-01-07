@@ -22,7 +22,8 @@ namespace eTickets.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allMovies = await _service.GetAllAsync(n => n.Cinema);
+            var allMovies = await _service.GetAllAsync(n => n.Cinema); // we use n => n.Cinema because we want to be able to reach for
+                                                                       // the name of the cinema where this movie is available
             return View(allMovies);
         }
 
