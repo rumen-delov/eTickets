@@ -26,6 +26,23 @@ namespace eTickets.Controllers
             return View(allMovies);
         }
 
+        public async Task<IActionResult> Filter(string searchString) // searchString comes from the _Layout.cshtml file: <input name="searchString" type="text" class="form-control" placeholder="Search for a movie..." />
+        {
+            var allMovies = await _service.GetAllAsync(n => n.Cinema);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = allMovies
+                    .Where(m => m.Name.Contains(searchString) || m.Description.Contains(searchString))
+                    .ToList();
+
+                return View("Index", filteredResult); // return the Index view but with the filtered result
+            }
+
+            // If the search string is empty return the Index view with all movies
+            return View("Index", allMovies); 
+        }
+
         // GET: Movies/Details/1
         public async Task<IActionResult> Details(int id)
         {
