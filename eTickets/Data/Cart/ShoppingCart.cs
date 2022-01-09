@@ -75,7 +75,7 @@ namespace eTickets.Data.Cart
 
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
-            // ?? the null-calescing operator returns
+            // ?? the null-coalescing operator returns
             // the value of the left-hand operand if is not null
             // otherwise, it evaluates the right-hand operand and returns its result 
 
