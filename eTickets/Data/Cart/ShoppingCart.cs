@@ -16,6 +16,34 @@ namespace eTickets.Data.Cart
             _context = context;
         }
 
+        public void AddItemToCart(Movie movie)
+        {
+            // Check if we already have this item (movie) in the shopping cart
+            var shoppingCartItem = _context.ShoppingCartItems
+                .FirstOrDefault(n => n.Movie.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
+
+            // If we do not have this item in our cart
+            if (shoppingCartItem == null)
+            {
+                shoppingCartItem = new ShoppingCartItem()
+                {
+                    ShoppingCartId = ShoppingCartId,
+                    Movie = movie,
+                    Amount = 1 // this is going to be the first item (first movie of that type)
+                };
+
+                // Add this shopping cart to the DB
+                _context.ShoppingCartItems.Add(shoppingCartItem);
+            }
+            else // if we have already added this item to the shopping cart
+            {
+                // then increase the amount by 1
+                shoppingCartItem.Amount++;
+            }
+
+            _context.SaveChanges();
+        }
+
         public string ShoppingCartId { get; set; }
 
         public List<ShoppingCartItem> ShoppingCartItems { get; set; }
