@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace eTickets.Data.Cart
 {
@@ -14,6 +16,22 @@ namespace eTickets.Data.Cart
         public ShoppingCart(AppDbContext context)
         {
             _context = context;
+        }
+
+        // it is static because it is going to be used in the Startup.cs file
+        public static ShoppingCart GetShoppingCart(IServiceProvider services)
+        {
+            // Get the session by using the service provider
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            var context = services.GetService<AppDbContext>();
+
+            string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
+            session.SetString("CartId", cartId);
+
+            return new ShoppingCart(context)
+            {
+                ShoppingCartId = cartId
+            };
         }
 
         public void AddItemToCart(Movie movie)
