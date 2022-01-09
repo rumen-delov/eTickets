@@ -18,7 +18,7 @@ namespace eTickets.Data.Cart
 
         public void AddItemToCart(Movie movie)
         {
-            // Check if we already have this item (movie) in the shopping cart
+            // Check if we already have this item (movie) in the shopping cart in the DB
             var shoppingCartItem = _context.ShoppingCartItems
                 .FirstOrDefault(n => n.Movie.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
 
@@ -39,6 +39,31 @@ namespace eTickets.Data.Cart
             {
                 // then increase the amount by 1
                 shoppingCartItem.Amount++;
+            }
+
+            _context.SaveChanges();
+        }
+
+        public void RemoveItemFromCart(Movie movie)
+        {
+            // Check if we already have this item (movie) in the shopping cart in the DB
+            var shoppingCartItem = _context.ShoppingCartItems
+                .FirstOrDefault(n => n.Movie.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
+
+            // If we have this item in the DB
+            if (shoppingCartItem != null)
+            {
+                // Check for the amount
+                // If the amount is more than one, decrease it by one
+                if (shoppingCartItem.Amount > 1)
+                {
+                    shoppingCartItem.Amount--;
+                }
+                else
+                {
+                    // Remove this shopping cart to the DB
+                    _context.ShoppingCartItems.Remove(shoppingCartItem);
+                }
             }
 
             _context.SaveChanges();
