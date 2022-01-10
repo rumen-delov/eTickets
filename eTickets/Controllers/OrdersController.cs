@@ -75,13 +75,20 @@ namespace eTickets.Controllers
             // Get all shopping cart items
             var items = _shoppingCart.GetShoppingCartItems();
 
-            string userId = "";
-            string userEmailAddress = "";
+            // If the items in the shopping cart are more than zero
+            // (if the shopping cart is not empty) 
+            if (items.Count > 0)
+            {
+                string userId = "";
+                string userEmailAddress = "";
 
-            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
-            await _shoppingCart.ClearShoppingCartAsync();
+                await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
+                await _shoppingCart.ClearShoppingCartAsync();
 
-            return View("OrderCompleted");
+                return View("OrderCompleted");
+            }
+
+            return View("NoItemsOrdered");
         }
     }
 }
