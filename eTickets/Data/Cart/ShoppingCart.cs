@@ -98,7 +98,7 @@ namespace eTickets.Data.Cart
             // otherwise, it evaluates the right-hand operand and returns its result 
 
             return ShoppingCartItems ??  (ShoppingCartItems = _context.ShoppingCartItems
-                
+                .Where(n => n.ShoppingCartId == ShoppingCartId)
                 .Include(n => n.Movie)
                 .ToList());           
         }
@@ -109,6 +109,13 @@ namespace eTickets.Data.Cart
                 .Where(n => n.ShoppingCartId == ShoppingCartId)
                 .Select(n => n.Movie.Price * n.Amount)
                 .Sum();
+        }
+
+        public async Task ClearShoppingCartAsync()
+        {
+            var items = _context.ShoppingCartItems
+                .Where(n => n.ShoppingCartId == ShoppingCartId)
+                .ToListAsync();
         }
     }
 }
