@@ -18,17 +18,25 @@ namespace eTickets.Controllers
             _service = service;
         }
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             // Prepare the ViewData["NameSortParam"] for the next click in the Index.cshtml view
             // If the sortOrder is null then set ViewData["NameSortParam"] to "name_desc" and return to the Index view
             // so the next time the sorting button is clicked the sortOrder will be not empty 
             // and the ViewData["NameSortParam"] will be set to "" and returned to the Index view
-            ViewData["NameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";            
+            ViewData["NameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            // For the search box
+            ViewData["CurrentFilter"] = searchString;
 
             // Right now the service delivers all the actors from the DB
             // Later it should be adjusted in a way that the entire sorting query is done in the DB?   
             IEnumerable<Actor> actors = await _service.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                actors = actors.Where(a => a.FullName.Contains(searchString));
+            }
 
             switch (sortOrder)
             {
