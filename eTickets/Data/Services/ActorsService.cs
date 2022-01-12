@@ -12,6 +12,12 @@ namespace eTickets.Data.Services
     {
         public ActorsService(AppDbContext context) : base(context)
         {
+            
+        }
+
+        public async Task<IEnumerable<Actor>> GetActorsByNameFilter(string searchString)
+        {
+            return await _context.Actors.Where(a => a.FullName.Contains(searchString)).ToListAsync();
         }
     }
 }

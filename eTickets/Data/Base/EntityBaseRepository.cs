@@ -11,7 +11,7 @@ namespace eTickets.Data.Base
     public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
         // Inject the AppDbContext
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
 
         public EntityBaseRepository(AppDbContext context)
         {

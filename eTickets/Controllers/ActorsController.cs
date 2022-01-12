@@ -31,12 +31,10 @@ namespace eTickets.Controllers
 
             // Right now the service delivers all the actors from the DB
             // Later it should be adjusted in a way that the entire sorting query is done in the DB?   
-            IEnumerable<Actor> actors = await _service.GetAllAsync();
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                actors = actors.Where(a => a.FullName.Contains(searchString));
-            }
+            //IEnumerable<Actor> actors = await _service.GetAllAsync();
+            var actors = string.IsNullOrEmpty(searchString) ?
+                await _service.GetAllAsync() :
+                await _service.GetActorsByNameFilter(searchString);
 
             switch (sortOrder)
             {
@@ -112,6 +110,7 @@ namespace eTickets.Controllers
         }
 
         // GET request: Actors/Delete/1
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var actorDetails = await _service.GetByIdAsync(id);

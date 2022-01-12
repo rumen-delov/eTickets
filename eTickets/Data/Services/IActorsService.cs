@@ -9,5 +9,6 @@ namespace eTickets.Data.Services
 {
     public interface IActorsService : IEntityBaseRepository<Actor>
     {
+        Task<IEnumerable<Actor>> GetActorsByNameFilter(string searchString);
     }
 }
