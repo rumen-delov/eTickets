@@ -4,12 +4,11 @@
 @model IEnumerable<Actor>
 
 
-
 @*Define ViewData
     (the data that you want have in the browser tab, or
-    properties tha  you want to use in your view, etc.)*@
+    properties that you want to use in your view, etc.)*@
 
-@{ 
+@{
     ViewData["Title"] = "List of Actors";
 }
 
@@ -23,7 +22,10 @@
             <thead>
                 <tr class="text-center">
                     <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
-                    <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                    @*<th>@Html.DisplayNameFor(model => model.FullName)</th>*@
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">@Html.DisplayNameFor(model => model.FullName)</a>
+                    </th>
                     <th>@Html.DisplayNameFor(model => model.Bio)</th>
                     <th>Actions</th>
                 </tr>
@@ -33,7 +35,7 @@
                 {
                     <tr>
                         <td class="align-middle">
-                            <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FullName" style="max-width: 150px"/>
+                            <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FullName" style="max-width: 150px" />
                         </td>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.FullName)

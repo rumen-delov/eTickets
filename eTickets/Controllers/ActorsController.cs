@@ -17,11 +17,30 @@ namespace eTickets.Controllers
         {
             _service = service;
         }
-        
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            IEnumerable<Actor> data = await _service.GetAllAsync();
-            return View(data);
+            // Prepare the ViewData["NameSortParam"] for the next click in the Index.cshtml view
+            // If the sortOrder is null then set ViewData["NameSortParam"] to "name_desc" and return to the Index view
+            // so the next time the sorting button is clicked the sortOrder will be not empty 
+            // and the ViewData["NameSortParam"] will be set to "" and returned to the Index view
+            ViewData["NameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";            
+
+            // Right now the service delivers all the actors from the DB
+            // Later it should be adjusted in a way that the entire sorting query is done in the DB?   
+            IEnumerable<Actor> actors = await _service.GetAllAsync();
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    actors = actors.OrderByDescending(a => a.FullName);
+                    break;
+                default:
+                    actors = actors.OrderBy(a => a.FullName);
+                    break;
+            }
+
+            return View(actors);
         }
 
         // Initially, we want just to return the empty view, and
@@ -35,7 +54,7 @@ namespace eTickets.Controllers
         }
 
         [HttpPost] // Because we are sending a POST request from Create.cshtml
-        public async Task<IActionResult> Create([Bind("FullName, ProfilePictureURL, Bio")]Actor actor) // Bind the properties that we are going to send from the Create view
+        public async Task<IActionResult> Create([Bind("FullName, ProfilePictureURL, Bio")] Actor actor) // Bind the properties that we are going to send from the Create view
         {
             if (!ModelState.IsValid)
             {
