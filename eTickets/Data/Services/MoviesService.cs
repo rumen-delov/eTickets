@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data.Base;
+using eTickets.Data.Services.Contracts;
 using eTickets.Data.ViewModels;
 using eTickets.Models;
 using Microsoft.EntityFrameworkCore;

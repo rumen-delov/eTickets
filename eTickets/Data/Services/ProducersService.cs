@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data.Base;
 using eTickets.Models;
+using eTickets.Data.Services.Contracts;
 
 namespace eTickets.Data.Services
 {

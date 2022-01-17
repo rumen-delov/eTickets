@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data;
 using eTickets.Data.Base;
+using eTickets.Data.Base.Contracts;
 
 namespace eTickets.Models
 {

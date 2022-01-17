@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data.Base;
+using eTickets.Data.Base.Contracts;
 using eTickets.Models;
 
-namespace eTickets.Data.Services
+namespace eTickets.Data.Services.Contracts
 {
-    public interface ICinemasService : IEntityBaseRepository<Cinema>
+    public interface IProducersService : IEntityBaseRepository<Producer>
     {
     }
 }

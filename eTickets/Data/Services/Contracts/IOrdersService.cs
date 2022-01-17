@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Models;
 
-namespace eTickets.Data.Services
+namespace eTickets.Data.Services.Contracts
 {
     public interface IOrdersService
     {

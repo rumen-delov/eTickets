@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data;
 using eTickets.Data.Services;
+using eTickets.Data.Services.Contracts;
 using eTickets.Models;
 using Microsoft.AspNetCore.Mvc;
 
